@@ -20,9 +20,7 @@ public:
             
             if(a == 0)
             {
-                b.erase(b.begin() + 1);
-               //  s.erase(s.end() + 1);
-                b.pop_back();
+              b =b.substr(1, b.size() - 2);
                 v.push_back(b);
                 b = "";
             }
