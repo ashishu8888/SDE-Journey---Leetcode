@@ -9,30 +9,23 @@ public:
             
             if(x == '(')
             {
-                a++;
-                b += '(';
+                if(a++)
+                {
+                   b += '('; 
+                }
+                
             }
             else if(x == ')')
             {
-                a--;
+                if(--a)
                 b += ')';
             }
             
-            if(a == 0)
-            {
-              b =b.substr(1, b.size() - 2);
-                v.push_back(b);
-                b = "";
-            }
+            
+           
         }
+      
         
-        string ans = "";
-        
-        for(auto x : v)
-        {
-            ans += x;
-        }
-        
-        return ans;
+        return b;
     }
 };
