@@ -12,14 +12,21 @@ public:
             {
                  int k = 0;
                  string b = "";
+                 bool notMatch = true;
                  while(k!=strs[j].size())
                  {
                      b += strs[j][k++];
                      if(b == a)
                      {
                          match++;
+                         notMatch = false;
                      }
+                  
                  }
+                    if(notMatch)
+                     {
+                         return m;
+                     }
             }
             if(match == strs.size())
             {
