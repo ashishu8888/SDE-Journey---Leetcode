@@ -11,7 +11,7 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        ListNode* f=head,*s=head->next;
+        ListNode* f=head,*s=head;
         
         
         
@@ -20,8 +20,7 @@ public:
             f = f->next;
             s = s->next->next;
         }
-        if(s!=NULL)
-            f=f->next;
+       
         return f;
     }
 };
