@@ -11,56 +11,20 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        int x=0,m;
-        if(head == NULL || head->next == NULL || head->next->next == NULL)
-        {
-            return head;
-        }
-         ListNode* tail = head,*tail1=head;
-        while(tail->next!=NULL)
-        {
-            x++;
-            tail = tail->next;
-        }
+           if(!head || !head->next || !head->next->next) return head;
         
-         while(tail1->next->next!=NULL)
-        {
-           
-            tail1 = tail1->next;
-        }
-        m =x;
-        x=x/2;
-        ListNode* curr=head,*s=head->next->next;
+        ListNode *odd = head;
+        ListNode *even = head->next;
+        ListNode *even_start = head->next;
         
-        while(curr!=NULL and curr->next!=NULL)
-        {
-            if(x==0)
-            {
-                break;
-            }
-            ListNode* temp =curr->next;
-            curr->next = curr->next->next;
-            tail->next = temp;
-            tail = tail->next;
-            tail->next=NULL;
-            curr = curr->next;
-            x--;
-            
+        while(odd->next && even->next){
+            odd->next = even->next; 
+            even->next = odd->next->next;  
+            odd = odd->next;
+            even = even->next;
         }
-        if(m%2)
-        {
-            
-            curr  =tail1->next;
-            cout<<tail1->val;
-            while(curr->next!=NULL)
-            {
-                int temp = curr->val;
-                curr->val = curr->next->val;
-                curr->next->val = temp;
-                curr = curr->next;
-            }
-        }
-        cout<<x<<endl;
-        return head;
+        odd->next = even_start;   
+        return head; 
     }
+    
 };
