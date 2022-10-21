@@ -9,13 +9,8 @@
 class Solution {
 public:
     void deleteNode(ListNode* node) {
-        ListNode* dl = node->next;
-        
-        // cout<<node->val<<endl;
-        node->val = node->next->val;
-        node->next = dl->next;
-        
-        delete dl;
+     node->val = node->next->val;
+        node->next = node->next->next;
         
         
         
