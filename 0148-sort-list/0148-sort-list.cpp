@@ -1,4 +1,3 @@
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -9,79 +8,72 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
 class Solution {
 public:
-    ListNode* merge(ListNode* head1, ListNode* head2) {
-     ListNode* ptr = new ListNode(0);
-       ListNode* c1=head1,*c2 = head2,*c3=ptr,*temp = NULL; 
-       
-       if(!head1 and !head2)
+    ListNode* sortList(ListNode* head) {
+        //If List Contain a Single or 0 Node
+        if(head == NULL || head ->next == NULL)
+            return head;
+        
+        
+        ListNode *temp = NULL;
+        ListNode *slow = head;
+        ListNode *fast = head;
+        
+        // 2 pointer appraoach / turtle-hare Algorithm (Finding the middle element)
+        while(fast !=  NULL && fast -> next != NULL)
         {
-            return NULL;
-        }
-        if(!head1)
+            temp = slow;
+            slow = slow->next;          //slow increment by 1
+            fast = fast ->next ->next;  //fast incremented by 2
+            
+        }   
+        temp -> next = NULL;            //end of first left half
+        
+        ListNode* l1 = sortList(head);    //left half recursive call
+        ListNode* l2 = sortList(slow);    //right half recursive call
+        
+        return mergelist(l1, l2);         //mergelist Function call
+            
+    }
+    
+    //MergeSort Function O(n*logn)
+    ListNode* mergelist(ListNode *l1, ListNode *l2)
+    {
+        ListNode *ptr = new ListNode(0);
+        ListNode *curr = ptr;
+        
+        while(l1 != NULL && l2 != NULL)
         {
-            return head2;
-        }
-        if(!head2)
-        {
-            return head1;
+            if(l1->val <= l2->val)
+            {
+                curr -> next = l1;
+                l1 = l1 -> next;
+            }
+            else
+            {
+                curr -> next = l2;
+                l2 = l2 -> next;
+            }
+        
+        curr = curr ->next;
+        
         }
         
-       
-        while(c1 and c2)
+        //for unqual length linked list
+        
+        if(l1 != NULL)
         {
-            if(c1->val >= c2->val)
-            {
-                cout<<c2->val;
-                c3->next = c2;
-                c2=c2->next;
-                
-            }
-            else{
-                 cout<<c1->val;
-                c3->next = c1;
-                c1=c1->next;
-            }
-            c3 = c3->next;
+            curr -> next = l1;
+            l1 = l1->next;
         }
-        if(!c1)
+        
+        if(l2 != NULL)
         {
-            c3->next = c2;
-        }
-        else{
-            c3->next = c1;
+            curr -> next = l2;
+            l2 = l2 ->next;
         }
         
         return ptr->next;
-       
     }
-        ListNode* sortList(ListNode* head) {
-        
-        if(!head || !head->next)
-        {
-            return head;
-        }
-        
-        ListNode* fast=head,*slow=head,*temp=NULL;
-        
-        while(fast!=NULL and fast->next!=NULL)
-        {
-            temp = slow;
-            slow = slow->next;
-            fast = fast->next->next;
-        }
-        
-        
-        temp->next = NULL;
-        
-        ListNode* l1 = sortList(head);
-        ListNode* l2 = sortList(slow);
-        
-        return merge(l1,l2);
-    }
-    
-    
-    
 };
