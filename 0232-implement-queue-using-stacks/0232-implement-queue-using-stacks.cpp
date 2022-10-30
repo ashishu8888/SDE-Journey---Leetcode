@@ -56,18 +56,17 @@ void reverse(stack<int>& st)
     }
     
     void push(int x) {
-
+        reverse(s);
         s.push(x);
+        reverse(s);
         
     }
     
     int pop() {
         
-      
-        reverse(s);
         int x = s.top();
         s.pop();
-        reverse(s);
+        
         
         return x;
         
@@ -76,10 +75,9 @@ void reverse(stack<int>& st)
     }
     
     int peek() {
-         reverse(s);
+       
         int x = s.top();
-        reverse(s);
-        
+      
         return x;
     }
     
