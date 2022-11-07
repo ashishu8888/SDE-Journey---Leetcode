@@ -2,15 +2,19 @@ class Solution {
 public:
     int calPoints(vector<string>& op) {
         stack<int> s;
+        int sum = 0;
         for(auto x  : op )
         {
             if(x == "C")
             {
+                sum = sum - s.top();
                 s.pop();
             }
+            
             else if(x == "D")
             {
                 int x = 2*s.top();
+                sum += x;
                 s.push(x);
             }
             else if(x == "+")
@@ -22,19 +26,16 @@ public:
                 s.push(y);
                 s.push(x);
                 s.push(x+y);
+                sum += (x+y);
             }
             else{
                 s.push(stoi(x));
+                sum += stoi(x);
             }
         }
         
-        int sm = 0;
-        while(!s.empty())
-        {
-            sm += s.top();
-            s.pop();
-        }
+      
         
-        return sm;
+        return sum;
     }
 };
