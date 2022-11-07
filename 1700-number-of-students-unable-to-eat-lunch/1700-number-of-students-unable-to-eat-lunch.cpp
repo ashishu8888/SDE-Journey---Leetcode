@@ -8,13 +8,11 @@ public:
         for(int i=students.size()-1;i>=0;i--)
         {
             a.push(students[i]);
+            b.push(sandwiches[i]);
         }
         
          
-        for(int i=students.size()-1;i>=0;i--)
-        {
-            b.push(sandwiches[i]);
-        }
+      
         
         while(1)
         {
