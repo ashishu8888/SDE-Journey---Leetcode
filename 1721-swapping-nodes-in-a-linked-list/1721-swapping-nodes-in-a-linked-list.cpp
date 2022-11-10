@@ -12,7 +12,7 @@ class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
         
-        int n = 1;
+        int n = 0;
         
         ListNode* curr = head;
         ListNode* curr1 = head;
@@ -24,10 +24,10 @@ public:
         }
         
         int i = n - k;
-        int x = 1;
+        int x = 0;
         
         curr = head;
-       //         cout<<n<<endl;
+               cout<<n<<endl;
         while(curr!=NULL )
         {
             if(i == x)
