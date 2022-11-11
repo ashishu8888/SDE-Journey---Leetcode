@@ -10,41 +10,85 @@
  */
 class Solution {
 public:
-    ListNode* reverseListNode(ListNode* head)
+    ListNode* reverse(ListNode* head)
     {
-        ListNode* last = NULL;
-        while(head)
-        {
-            ListNode* tmp = head->next;
-            head->next = last;
-            last = head;
-            head = tmp;
-        }
-        return last;
+        if (head == NULL || head->next == NULL)
+            return head;
+ 
+        /* reverse the rest list and put
+          the first element at the end */
+        ListNode* rest = reverse(head->next);
+        head->next->next = head;
+ 
+        /* tricky step -- see the diagram */
+        head->next = NULL;
+ 
+        /* fix the head pointer */
+        return rest;
     }
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-         l1 = reverseListNode(l1);
-        l2 = reverseListNode(l2);
-        ListNode* head = NULL;
+        
+      l1 = reverse(l1);
+      l2 = reverse(l2);
+        
+      ListNode* a = l1,*d=NULL;
+      ListNode* b = l2;
         int carry = 0;
-        while(l1||l2)
+        
+      while(a and b)
+      {
+         int sum = a->val+b->val;
+         int val = (sum + carry)%10;
+         carry = (sum+carry)/10;
+          
+         ListNode* nn = new ListNode(val);
+          nn->next = d;
+          d = nn;
+          
+          a = a->next;
+          b = b->next;
+          
+      }
+        
+      while(a)
+      {
+          int sum = a->val;
+          int val = (sum+carry)%10;
+          carry = (sum+carry)/10;
+          
+         ListNode* nn = new ListNode(val);
+         nn->next = d;
+         d = nn;
+          
+         a = a->next;
+          
+      }
+       
+        while(b)
         {
-            int x1 = l1?l1->val:0;
-            int x2 = l2?l2->val:0;
-            int sum = (x1+x2+carry)%10;
-            carry = (x1+x2+carry)/10;
-            ListNode* curr = new ListNode(sum);
-            curr->next = head;
-            head = curr;
-            l1 = l1?l1->next:NULL;
-            l2 = l2?l2->next:NULL;
+            int sum = b->val;
+            int val = (sum+carry)%10;
+            carry = (sum+carry)/10;
+             ListNode* nn = new ListNode(val);
+         nn->next = d;
+         d = nn;
+          
+         b = b->next;
+            
         }
+        
         if(carry)
         {
-            ListNode* curr = new ListNode(carry);
-            curr->next = head;
-            head = curr;
+               ListNode* nn = new ListNode(1);
+         nn->next = d;
+         d = nn;
         }
-        return head;
+        
+        return d;
+        
+        
+    
+        
+        
     }
 };
