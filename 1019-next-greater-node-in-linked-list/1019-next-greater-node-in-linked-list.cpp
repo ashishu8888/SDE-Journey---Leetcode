@@ -11,65 +11,23 @@
 class Solution {
 public:
     vector<int> nextLargerNodes(ListNode* head) {
-        ListNode* curr = head;
-        
-        vector<int> v,v1;
-        
-        while(curr!=NULL)
-        {
-            v.push_back(curr->val);
-            curr = curr->next;
-        }
-        
-        
-        stack<int> s;
-        
-        for(int i=v.size()-1;i>=0;i--)
-        {
-            int x = v[i];
-            if(s.empty() )
-            {
-                v1.push_back(0);
-                s.push(x);
+        vector<int> answer;
+        vector<pair<int, int>> stk;
+        // We use an integer 'cnt' to represent the index.
+        int cnt = 0;
+
+        while(head != nullptr){
+            // Set the next greate value of the current value 'head.val' as 0 by default.
+            answer.push_back(0);
+            while(stk.size() && head->val > stk.back().second){
+                auto [id, val] = stk.back();
+                stk.pop_back();
+                answer[id] = head->val;
             }
-            
-           else if(!s.empty() and s.top() <= v[i])
-           {
-               while(!s.empty() and s.top() <= v[i])
-               {
-                   s.pop();
-               }
-               
-               if(!s.empty()  and s.top() > v[i])
-               {
-                   
-                v1.push_back(s.top());
-                s.push(v[i]);
-                   
-               }
-              else if(s.empty())
-               {
-                v1.push_back(0);
-                s.push(x);
-               }
-           }
-            
-            else if(!s.empty() and s.top() > v[i])
-            {
-                v1.push_back(s.top());
-                s.push(v[i]);
-            }
-            
+            // Add both the index and the value to stack.
+            stk.push_back({cnt++, head->val});
+            head = head->next;
         }
-        
-        
-          //  v.clear();
-        
-       
-        
-        reverse(v1.begin(),v1.end());
-      //  v[v.size()-1] = 0;
-        return v1;
-        
+        return answer;
     }
 };
