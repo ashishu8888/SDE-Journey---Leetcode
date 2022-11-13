@@ -14,29 +14,19 @@ public:
     int x = 0;
     ListNode* Head = NULL;
     Solution(ListNode* head) {
-        ListNode* curr = head;
         Head = head;
-        
-        while(curr!=NULL)
-        {
-            x++;
-            curr=curr->next;
-            
-        }
+       
     }
     
     int getRandom() {
-        int n = (rand())%(x);
-            
-        ListNode* curr = Head;
-        
-        
-        for(int i=0;i<n;i++)
-        {
-            curr = curr->next;
+        int ans = 0, i = 1;
+        ListNode *p = this->Head;
+        while (p) {
+            if (rand() % i == 0) ans = p->val; // replace ans with i-th node.val with probability 1/i
+            i ++;
+            p = p->next;
         }
-        
-        return curr->val;
+        return ans;
     }
 };
 
